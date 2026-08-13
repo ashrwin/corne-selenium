@@ -1,0 +1,28 @@
+# Build matrix for this fork. Referenced from .github/workflows/build.yml via
+# the reusable workflow's `build_matrix_path` input, which leaves upstream's
+# build.yaml untouched so it never conflicts on a merge from upstream.
+#
+# See build.yaml for the board/shield reference list.
+
+include:
+
+  # Corne + nice!nano v2
+  - board: nice_nano@2//zmk
+    shield: corne_left
+    artifact-name: corne_left
+    snippet: studio-rpc-usb-uart
+    cmake-args: &cmake-args -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_POINTING=y
+  - board: nice_nano@2//zmk
+    shield: corne_right
+    artifact-name: corne_right
+    snippet: studio-rpc-usb-uart
+    cmake-args: *cmake-args
+
+  ###
+  # Resets
+  ##
+
+  # nice!nano v2 (Corne)
+  - board: nice_nano@2//zmk
+    shield: settings_reset
+    artifact-name: nice_nano_v2_settings_reset

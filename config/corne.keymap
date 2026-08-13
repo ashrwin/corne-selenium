@@ -1,1 +1,13 @@
+#define SELENIUM_KEYMAP_BINDINGS(LOUT1,  LROW1,  RROW1,  ROUT1, \
+                                 LOUT2,  LROW2,  RROW2,  ROUT2, \
+                                 LOUT3,  LROW3,  RROW3,  ROUT3, \
+                                 LT1, LT2, LT3,  RT3, RT2, RT1) \
+      LROW1   RROW1 \
+      LROW2   RROW2 \
+      LROW3   RROW3 \
+LT1 LT2 LT3  RT3 RT2 RT1
+
 #include <aekeynox/selenium.keymap>
+
+// This board is 3x5+3; the Corne shield ships both layouts and defaults to 6-column.
+/ { chosen { zmk,physical-layout = &foostan_corne_5col_layout; }; };

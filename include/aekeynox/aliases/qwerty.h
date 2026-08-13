@@ -8,7 +8,7 @@
 #define X_CUT   &kp CMD(X)
 #define X_COPY  &kp CMD(C)
 #define X_PASTE &kp CMD(V)
-#define X_REDO  &kp CMD(Y)
+#define X_REDO  &kp CMD(LS(Z)) // local: CMD(Y) is the Windows binding; macOS redo is Cmd+Shift+Z
 
 #define X_CTL_W &kp LC(W)
 #define X_SAVE  &kp CMD(S)
