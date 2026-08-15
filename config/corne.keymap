@@ -11,3 +11,73 @@ LT1 LT2 LT3  RT3 RT2 RT1
 
 // This board is 3x5+3; the Corne shield ships both layouts and defaults to 6-column.
 / { chosen { zmk,physical-layout = &foostan_corne_5col_layout; }; };
+
+// Vertical combos: one fingertip in the gap catches both keys in a column.
+// A typing roll uses different fingers on different columns, so it cannot
+// produce this shape -- which is why these are safe where an adjacent
+// same-row pair would not be.
+//
+// One finger per scope. Squeeze upward (top+home) for next, downward
+// (home+bottom) for previous.
+//
+//        up            down
+//   ring    W+S       S+X      window
+//   middle  --        D+C      app
+//   index   R+F       F+V      tab
+//
+// Tab and app are the most-used, so they take the columns the fingers already
+// rest on -- index home (R/F/V) and middle (E/D/C) -- rather than the index
+// stretch column (T/G/B), which stays free.
+//
+// E+D is deliberately left unbound: "ed"/"de" are top-10 English bigrams
+// sharing that column, and app switching needs only one direction anyway
+// (a tapped Cmd+Tab is a toggle between the last two apps, not a step).
+//
+// require-prior-idle-ms is 150 throughout. It costs nothing here: switching
+// always follows a pause, and per app/src/combo.c a combo's own presses are
+// excluded from the idle timer, so repeated squeezes never throttle.
+/ {
+    combos {
+        compatible = "zmk,combos";
+
+        combo_window_next {         // W + S
+            key-positions = <1 11>;
+            bindings = <&kp LG(GRAVE)>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <150>;
+            layers = <0>;
+        };
+
+        combo_window_prev {         // S + X
+            key-positions = <11 21>;
+            bindings = <&kp LG(LS(GRAVE))>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <150>;
+            layers = <0>;
+        };
+
+        combo_app {                 // D + C
+            key-positions = <12 22>;
+            bindings = <&kp LG(TAB)>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <150>;
+            layers = <0>;
+        };
+
+        combo_tab_next {            // R + F
+            key-positions = <3 13>;
+            bindings = <&kp LC(TAB)>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <150>;
+            layers = <0>;
+        };
+
+        combo_tab_prev {            // F + V
+            key-positions = <13 23>;
+            bindings = <&kp LC(LS(TAB))>;
+            timeout-ms = <30>;
+            require-prior-idle-ms = <150>;
+            layers = <0>;
+        };
+    };
+};
